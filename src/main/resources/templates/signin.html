@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+        /* Style the image */
+        img {
+            width: 150px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+            float: left; /* Align image to the left */
+            margin-left: 20px; /* Add some margin between the image and form */
+        }
+    </style>
+</head>
+<body>
+    <section class="center">
+
+        <form th:action="@{/dologin}" method="post">
+            <h1>Login</h1>
+
+            <div th:if="${session.vmsg}">
+                <th:block th:text="${#session.removeAttribute('vmsg')}"></th:block>
+            </div>
+
+            <div th:if="${param.error}" style="color:red">
+                Invalid username and password <br><br>
+            </div>
+
+            <div th:if="${param.logout}" style="color:green">
+                You have been successfully logged out... <br><br>
+            </div>
+
+            Email Id: <input type="text" name="username" placeholder="Enter Your Email Id" required><br><br>
+
+            Password: <input type="password" name="password" placeholder="Enter Your Password" required><br><br>
+
+            <input type="submit" value="Login">
+        </form>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <!-- Image aligned to the left -->
+        <img src="/image/image2.jpg" alt="Image description">
+        <br>
+        <br>
+        <br>
+    </section>
+</body>
+</html>

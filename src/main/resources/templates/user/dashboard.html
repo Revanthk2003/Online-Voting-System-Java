@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/base::layout(~{::section})}">
+<head>
+    <meta charset="UTF-8" />
+    <title>User Dashboard</title>
+</head>
+<body>
+    <section class="center">
+        <div class="container">
+            <div class="center">
+                <!-- User Details -->
+                <div class="layout">
+                    <div class="col col-main">
+                        <table>
+                            <h2>User Details:</h2>
+                            <img th:src="@{/image/user.png}" height="125px" alt="User Icon">
+                        </table>
+                        <table border="1" align="center">
+                            <tr>
+                                <th>Name: </th>
+                                <th><h4 th:text="${user.name}"></h4></th>
+                            </tr>
+                            <tr>
+                                <th>Email Id: </th>
+                                <th><h4 th:text="${user.email}"></h4></th>
+                            </tr>
+                            <tr>
+                                <th>Phone No.: </th>
+                                <th><h4 th:text="${user.phone}"></h4></th>
+                            </tr>
+                            <tr>
+                                <th>Status.: </th>
+                                <th>
+                                    <div th:if="${user.status}">
+                                        <h4 th:text="${user.status}"></h4>
+                                    </div>
+                                    <div th:unless="${user.status}">
+                                        <h4>Not Voted</h4>
+                                    </div>
+                                </th>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- User Details End -->
+                    <div class="col col-complementary">
+                        <!-- Vote Form -->
+<form th:action="@{/user/vote}" method="post" th:unless="${user.status}">
+    <div th:if="${session.vmsg}">
+        <h3 th:text="${session.vmsg}" style="color:green"></h3>
+    </div>
+    <div th:unless="${session.vmsg}">
+        <div th:if="${user.status}">
+            <h2 style="color:green"> You are already <span th:text="${user.status}">Title</span> </h2>
+        </div>
+    </div>
+    <div th:unless="${user.status}">
+        <input th:value="${user.email}" name="email" type="hidden">
+        <br>
+        <!-- Display Candidates from Database -->
+        <select name="candidate" required>
+            <option th:each="candidate : ${candidates}" th:value="${candidate.id}" th:text="${candidate.candidate}"></option>
+        </select>
+        <br><br>
+        <input type="submit" value="Vote">
+        <br>
+    </div>
+</form>
+<!-- Vote Form End -->
+
+                        <!-- Vote Form End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

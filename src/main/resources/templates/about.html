@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+</head>
+<body>
+	<section class="center">
+		<div th:if="${session.msg}">
+			<h3 th:text="${session.msg}" style="color:red"></h3>
+   			<div th:text="${@sessionUtilityBean.removeVerificationMessageFromSession()}"></div>
+   		</div>
+   		<img src="/image/image3.jpg" alt="Image description" style="width: 400px; height: 500px;">
+		<br>	
+	</section>
+</body>
+</html>
